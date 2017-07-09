@@ -111,9 +111,19 @@ public class Player : MonoBehaviour {
         }
 
         // Switch guns
-        if (Input.GetKeyUp(KeyCode.F))
+        if (Input.GetJoystickNames().Contains("Controller (XBOX 360 For Windows)"))
         {
-            gunController.SwitchGuns();
+            if (Input.GetButtonUp("XBOXLeftB"))
+            {
+                gunController.SwitchGuns();
+            }
+        }
+        else
+        {
+            if (Input.GetKeyUp(KeyCode.F))
+            {
+                gunController.SwitchGuns();
+            }
         }
 
     }
