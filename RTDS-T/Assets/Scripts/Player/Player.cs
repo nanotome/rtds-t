@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof (PlayerController))]
+[RequireComponent(typeof (GunController))]
 public class Player : MonoBehaviour {
 
     public Crosshair crosshair;

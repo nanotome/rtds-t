@@ -432,7 +432,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb7ebc804043e744b8276f61342d4e58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dotHighlight: {r: 1, g: 0.26551127, b: 0.04476642, a: 0}
 --- !u!1 &553084944
 GameObject:
   m_ObjectHideFlags: 0
