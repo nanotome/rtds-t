@@ -557,6 +557,14 @@ Prefab:
       propertyPath: crosshair
       value: 
       objectReference: {fileID: 541116315}
+    - target: {fileID: 4035136022233214, guid: 0bb8005016a40f4439b9883938a9ad42, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4340667571326100, guid: 0bb8005016a40f4439b9883938a9ad42, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0bb8005016a40f4439b9883938a9ad42, type: 2}
   m_IsPrefabParent: 0

@@ -26,8 +26,8 @@ public class Player : MonoBehaviour {
     }
 
     void Start () {
-        gunController.EquipPrimaryGun(1);
-        gunController.EquipSecondaryGun(0);
+        gunController.EquipPrimaryGun(0);
+        gunController.EquipSecondaryGun(1);
 	}
 	
 	void Update () {
@@ -69,6 +69,17 @@ public class Player : MonoBehaviour {
                 // 6. move the crosshair to the position of the cursor
                 crosshair.transform.position = point;
             }
+        }
+
+        // Shoot
+        if (Input.GetMouseButton(0))
+        {
+            gunController.OnTriggerHold();
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            gunController.OnTriggerRelease();
         }
 
         // Player dash
