@@ -1,16 +1,37 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Gun : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public Transform projectileSpawn;
+
+    public enum FireMode { Auto, Single };
+    public FireMode fireMode;
+
+    public Projectile bulletType;
+    public float msBetweenShots;
+    public float bulletSpeed;
+
+    float nextShotTime;
+    bool isTriggerReleased;
+
+	void Shoot()
+    {
+        if (Time.time > nextShotTime)
+        {
+            // for the Single fire mode, the gun should not shoot unless
+            // the player has released the trigger beforehand. This constrains
+            // the gun to one shot at a time.
+            if (fireMode == FireMode.Single)
+            {
+                if (!isTriggerReleased)
+                {
+                    return;
+                }
+            }
+
+            nextShotTime = Time.time + msBetweenShots / 1000;
+            Projectile newProjectile = Instantiate(bulletType, projectileSpawn.position, projectileSpawn.rotation);
+            // newProjectile.SetSpeed(bulletSpeed);
+        }
+    }
 }
