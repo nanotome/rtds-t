@@ -6,6 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof (PlayerController))]
 public class Player : MonoBehaviour {
 
+    public Crosshair crosshair;
+
     // The PlayerController script handles the movement of the Player
     PlayerController playerController;
     Camera viewCamera;
@@ -31,7 +33,10 @@ public class Player : MonoBehaviour {
             // the movement of the right analog stick.
             Vector3 lookPoint = new Vector3(Input.GetAxisRaw("XBOXRightAnalogH"), 0, Input.GetAxisRaw("XBOXRightAnalogV"));
             Vector3 newPoint = lookPoint.normalized * lookSpeed;
-            playerController.LookAt(newPoint);
+            // 6. move the crosshair to the position of the cursor
+            crosshair.Move(newPoint, lookSpeed);
+            // 7. turn the Player to face the crosshair
+            playerController.LookAt(crosshair.transform.position);
         } else
         {
             // Turn Player to face the direction of the cursor
@@ -52,6 +57,8 @@ public class Player : MonoBehaviour {
                 Vector3 point = ray.GetPoint(rayDistance);
                 // 5. turn the Player to face that point
                 playerController.LookAt(point);
+                // 6. move the crosshair to the position of the cursor
+                crosshair.transform.position = point;
             }
         }
 
