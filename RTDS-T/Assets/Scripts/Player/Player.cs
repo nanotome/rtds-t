@@ -16,7 +16,7 @@ public class Player : MonoBehaviour {
 
     float moveSpeed = 5f;
     float lookSpeed = 20f; // turning speed for game controller
-    float dashSpeed = 100f;
+    float dashSpeed = 150f;
 
     private void Awake()
     {
@@ -26,8 +26,8 @@ public class Player : MonoBehaviour {
     }
 
     void Start () {
-        gunController.EquipPrimaryGun(0);
-        gunController.EquipSecondaryGun(1);
+        gunController.EquipPrimaryGun(1);
+        gunController.EquipSecondaryGun(0);
 	}
 	
 	void Update () {
@@ -72,14 +72,24 @@ public class Player : MonoBehaviour {
         }
 
         // Shoot
-        if (Input.GetMouseButton(0))
+        if (Input.GetJoystickNames().Contains("Controller (XBOX 360 For Windows)"))
         {
-            gunController.OnTriggerHold();
+            if (Input.GetAxis("XBOXRightT") > 0)
+            {
+                gunController.OnTriggerHold();
+            }
         }
-
-        if (Input.GetMouseButtonUp(0))
+        else
         {
-            gunController.OnTriggerRelease();
+            if (Input.GetMouseButton(0))
+            {
+                gunController.OnTriggerHold();
+            }
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                gunController.OnTriggerRelease();
+            }
         }
 
         // Player dash
