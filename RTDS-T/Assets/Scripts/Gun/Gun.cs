@@ -34,4 +34,20 @@ public class Gun : MonoBehaviour {
             // newProjectile.SetSpeed(bulletSpeed);
         }
     }
+
+    public void OnTriggerHold()
+    {
+        Shoot();
+        isTriggerReleased = false;
+    }
+
+    public void OnTriggerRelease()
+    {
+        isTriggerReleased = true;
+    }
+
+    public void Aim(Vector3 aimPoint)
+    {
+        transform.LookAt(aimPoint);
+    }
 }

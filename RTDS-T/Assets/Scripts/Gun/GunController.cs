@@ -1,16 +1,34 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GunController : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public Transform primaryWeaponHold;
+    public Transform secondaryWeaponHold;
+
+    public Gun[] allGuns;
+    Gun equippedGun;
+
+    public void OnTriggerHold()
+    {
+        if (equippedGun != null)
+        {
+            equippedGun.OnTriggerHold();
+        }
+    }
+
+    public void OnTriggerRelease()
+    {
+        if (equippedGun != null)
+        {
+            equippedGun.OnTriggerRelease();
+        }
+    }
+
+    public void Aim(Vector3 aimPoint)
+    {
+        if (equippedGun != null)
+        {
+            equippedGun.Aim(aimPoint);
+        }
+    }
 }
