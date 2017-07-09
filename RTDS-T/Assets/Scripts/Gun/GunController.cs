@@ -64,4 +64,16 @@ public class GunController : MonoBehaviour {
         EquipGun(allGuns[gunIndex], 0, primaryWeaponHold);
         primaryEquip = gunIndex;
     }
+
+    public void SwitchGuns()
+    {
+        // Swap secondary and primary equip indexes
+        int temp = primaryEquip;
+        primaryEquip = secondaryEquip;
+        secondaryEquip = temp;
+
+        // equip guns
+        EquipPrimaryGun(primaryEquip);
+        EquipSecondaryGun(secondaryEquip);
+    }
 }

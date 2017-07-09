@@ -77,6 +77,9 @@ public class Player : MonoBehaviour {
             if (Input.GetAxis("XBOXRightT") > 0)
             {
                 gunController.OnTriggerHold();
+            } else
+            {
+                gunController.OnTriggerRelease();
             }
         }
         else
@@ -106,6 +109,12 @@ public class Player : MonoBehaviour {
                 playerController.Dash(dashSpeed);
             }
         }
-        
-	}
+
+        // Switch guns
+        if (Input.GetKeyUp(KeyCode.F))
+        {
+            gunController.SwitchGuns();
+        }
+
+    }
 }
