@@ -23,8 +23,16 @@ public class PlayerController : MonoBehaviour {
         rb.MovePosition(rb.position + velocity * Time.deltaTime);
     }
 
+    // move the object that has this script as a component
     public void Move(Vector3 _velocity)
     {
         velocity = _velocity;
+    }
+
+    public void LookAt(Vector3 lookPoint)
+    {
+        // Set the point to the same height as the Player
+        Vector3 newPoint = new Vector3(lookPoint.x, transform.position.y, lookPoint.z);
+        transform.LookAt(newPoint);
     }
 }
