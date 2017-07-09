@@ -12,6 +12,7 @@ public class Player : MonoBehaviour {
 
     float moveSpeed = 5f;
     float lookSpeed = 20f; // turning speed for game controller
+    float dashSpeed = 100f;
 
 	void Start () {
         playerController = GetComponent<PlayerController>();
@@ -52,6 +53,12 @@ public class Player : MonoBehaviour {
                 // 5. turn the Player to face that point
                 playerController.LookAt(point);
             }
+        }
+
+        // Player dash
+        if (Input.GetMouseButtonUp(1))
+        {
+            playerController.Dash(dashSpeed);
         }
 	}
 }

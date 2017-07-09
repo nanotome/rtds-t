@@ -6,6 +6,9 @@ public class PlayerController : MonoBehaviour {
     Vector3 velocity;
     Rigidbody rb;
 
+    bool isDashing;
+    float dashspeed;
+
 	// Use this for initialization
 	void Start () {
         rb = GetComponent<Rigidbody>();
@@ -19,8 +22,16 @@ public class PlayerController : MonoBehaviour {
     // Handle movement of Physics objects
     private void FixedUpdate()
     {
-        // Move the Player to a position specified by the input received
-        rb.MovePosition(rb.position + velocity * Time.deltaTime);
+        if (isDashing)
+        {
+            rb.MovePosition(transform.position + transform.forward * dashspeed * Time.deltaTime);
+            isDashing = false;
+        } else
+        {
+            // Move the Player to a position specified by the input received
+            rb.MovePosition(rb.position + velocity * Time.deltaTime);
+        }
+        
     }
 
     // move the object that has this script as a component
@@ -34,5 +45,11 @@ public class PlayerController : MonoBehaviour {
         // Set the point to the same height as the Player
         Vector3 newPoint = new Vector3(lookPoint.x, transform.position.y, lookPoint.z);
         transform.LookAt(newPoint);
+    }
+
+    public void Dash(float speed)
+    {
+        isDashing = true;
+        dashspeed = speed;
     }
 }
