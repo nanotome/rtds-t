@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Gun
+  m_Name: SecondaryGun
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -71,5 +71,5 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.2647059, g: 0.18490486, b: 0.18655589, a: 1}
+    - _Color: {r: 0.24483953, g: 0.16652249, b: 0.29411763, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

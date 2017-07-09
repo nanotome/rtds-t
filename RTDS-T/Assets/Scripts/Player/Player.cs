@@ -11,15 +11,23 @@ public class Player : MonoBehaviour {
 
     // The PlayerController script handles the movement of the Player
     PlayerController playerController;
+    GunController gunController;
     Camera viewCamera;
 
     float moveSpeed = 5f;
     float lookSpeed = 20f; // turning speed for game controller
     float dashSpeed = 100f;
 
-	void Start () {
+    private void Awake()
+    {
         playerController = GetComponent<PlayerController>();
+        gunController = GetComponent<GunController>();
         viewCamera = Camera.main;
+    }
+
+    void Start () {
+        gunController.EquipPrimaryGun(1);
+        gunController.EquipSecondaryGun(0);
 	}
 	
 	void Update () {
