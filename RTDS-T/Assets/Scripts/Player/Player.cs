@@ -56,9 +56,19 @@ public class Player : MonoBehaviour {
         }
 
         // Player dash
-        if (Input.GetMouseButtonUp(1))
+        if (Input.GetJoystickNames().Contains("Controller (XBOX 360 For Windows)"))
         {
-            playerController.Dash(dashSpeed);
+            if (Input.GetButtonUp("XBOXRightB"))
+            {
+                playerController.Dash(dashSpeed);
+            }
+        } else
+        {
+            if (Input.GetMouseButtonUp(1))
+            {
+                playerController.Dash(dashSpeed);
+            }
         }
+        
 	}
 }
