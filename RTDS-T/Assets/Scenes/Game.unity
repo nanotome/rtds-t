@@ -224,6 +224,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114474524906049106, guid: fa299c509953a854d974eb9355351f57,
+        type: 2}
+      propertyPath: startingHealth
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fa299c509953a854d974eb9355351f57, type: 2}
   m_IsPrefabParent: 0
@@ -605,6 +610,23 @@ Prefab:
     - target: {fileID: 1930279643916022, guid: 0bb8005016a40f4439b9883938a9ad42, type: 2}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080945236920828, guid: 0bb8005016a40f4439b9883938a9ad42, type: 2}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 1379957597981136, guid: 0bb8005016a40f4439b9883938a9ad42, type: 2}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 1930279643916022, guid: 0bb8005016a40f4439b9883938a9ad42, type: 2}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 114469778023907284, guid: 0bb8005016a40f4439b9883938a9ad42,
+        type: 2}
+      propertyPath: startingHealth
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0bb8005016a40f4439b9883938a9ad42, type: 2}

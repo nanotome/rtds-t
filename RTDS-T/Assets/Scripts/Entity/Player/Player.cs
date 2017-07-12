@@ -25,7 +25,9 @@ public class Player : LivingEntity {
         viewCamera = Camera.main;
     }
 
-    void Start () {
+    protected override void Start () {
+        base.Start();
+
         gunController.EquipPrimaryGun(1);
         gunController.EquipSecondaryGun(0);
 	}

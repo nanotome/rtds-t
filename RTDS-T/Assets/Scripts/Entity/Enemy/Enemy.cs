@@ -45,8 +45,10 @@ public class Enemy : LivingEntity {
         }
     }
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+
         if (hasTarget)
         {
             currentState = State.Idle;
