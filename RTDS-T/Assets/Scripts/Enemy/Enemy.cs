@@ -5,12 +5,24 @@ using UnityEngine.AI;
 [RequireComponent( typeof(NavMeshAgent))]
 public class Enemy : MonoBehaviour {
 
+    public float rangeOfSight; // how far the Enemy can see
+    public float rangeOfAttack; // how far the Enemy can attack
+    public LayerMask viewMask; // layer on which obstacles to sight exist
+    public Transform attackSpawn;
+    public Projectile attackType;
+
+    public float msBetweenAttacks;
+    float nextAttackTime;
+    float attackSpeed = 0f;
+    float attackLifeTime = .2f;
+
+    enum State { Idle, Chasing, Attacking };
+    State currentState;
+
     private NavMeshAgent navMeshAgent;
     Transform target;
     GameObject targetEntity;
     bool hasTarget;
-    public float rangeOfSight; // how far the Enemy can see
-    public LayerMask viewMask; // layer on which obstacles to sight exist
 
     float collisionRadius;
     float targetCollisionRadius;
@@ -37,8 +49,21 @@ public class Enemy : MonoBehaviour {
     {
         if (hasTarget)
         {
+            currentState = State.Idle;
+
             // Cast a ray from the Enemy to the Player
             StartCoroutine(UpdatePath());
+        }
+    }
+
+    private void Update()
+    {
+        if (hasTarget)
+        {
+            if (CanAttackPlayer())
+            {
+                Attack();
+            }
         }
     }
 
@@ -58,6 +83,18 @@ public class Enemy : MonoBehaviour {
         return false;
     }
 
+    // check if the Enemy can attack the Player
+    bool CanAttackPlayer()
+    {
+        // 1. Check the distance between the Enemy and the Player
+        if (Vector3.Distance(transform.position, target.position) < rangeOfAttack)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     // Calculate a new path to the target four times a second.
     // This is more performant than calculating the path every frame
     // (if this was in the update method).
@@ -70,6 +107,8 @@ public class Enemy : MonoBehaviour {
             if(CanSeePlayer())
             {
                 navMeshAgent.enabled = true;
+                currentState = State.Chasing;
+
                 Vector3 dirToTarget = (target.position - transform.position).normalized;
                 Vector3 targetPos = target.position - dirToTarget * (collisionRadius + targetCollisionRadius);
 
@@ -80,6 +119,28 @@ public class Enemy : MonoBehaviour {
             }
             
             yield return new WaitForSeconds(refreshRate);
+        }
+    }
+
+    void Attack()
+    {
+        if (Time.time > nextAttackTime)
+        {
+            // The Enemy might not have been chasing the Player before attacking
+            // so we store the previous state in order to return to it when
+            // the Enemy is done attacking.
+            State prevState = currentState;
+            currentState = State.Attacking;
+            // The Enemy should not be chasing the Player while attacking.
+            navMeshAgent.enabled = false;
+
+            nextAttackTime = Time.time + msBetweenAttacks / 1000;
+            Projectile newProjectile = Instantiate(attackType, attackSpawn.position, attackSpawn.rotation);
+            newProjectile.SetLifeTime(attackLifeTime);
+            newProjectile.SetSpeed(attackSpeed);
+
+            currentState = prevState;
+            navMeshAgent.enabled = true;
         }
     }
 }

@@ -2,6 +2,7 @@
 
 public class Projectile : MonoBehaviour {
 
+    // This allows us to create projectiles that don't move forward.
     float projectileSpeed = 10;
     float lifeTime = 3f;
 
@@ -18,5 +19,12 @@ public class Projectile : MonoBehaviour {
     public void SetSpeed(float newSpeed)
     {
         projectileSpeed = newSpeed;
+    }
+
+    // This allows us to define projectiles that stay on the field for shorter
+    // or longer periods.
+    public void SetLifeTime(float newTime)
+    {
+        lifeTime = newTime;
     }
 }

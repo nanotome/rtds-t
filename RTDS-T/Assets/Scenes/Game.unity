@@ -185,7 +185,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
---- !u!1001 &83016386
+--- !u!1001 &77839885
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -194,7 +194,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4686440200016638, guid: fa299c509953a854d974eb9355351f57, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -8.56
+      value: 8.08
       objectReference: {fileID: 0}
     - target: {fileID: 4686440200016638, guid: fa299c509953a854d974eb9355351f57, type: 2}
       propertyPath: m_LocalPosition.y
@@ -202,7 +202,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4686440200016638, guid: fa299c509953a854d974eb9355351f57, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 7.53
+      value: 8.63
       objectReference: {fileID: 0}
     - target: {fileID: 4686440200016638, guid: fa299c509953a854d974eb9355351f57, type: 2}
       propertyPath: m_LocalRotation.x
@@ -223,21 +223,6 @@ Prefab:
     - target: {fileID: 4686440200016638, guid: fa299c509953a854d974eb9355351f57, type: 2}
       propertyPath: m_RootOrder
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114474524906049106, guid: fa299c509953a854d974eb9355351f57,
-        type: 2}
-      propertyPath: rangeOfSight
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114474524906049106, guid: fa299c509953a854d974eb9355351f57,
-        type: 2}
-      propertyPath: viewMask.m_Bits
-      value: 1024
-      objectReference: {fileID: 0}
-    - target: {fileID: 195887276533794360, guid: fa299c509953a854d974eb9355351f57,
-        type: 2}
-      propertyPath: m_Speed
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fa299c509953a854d974eb9355351f57, type: 2}
