@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent( typeof(NavMeshAgent))]
-public class Enemy : MonoBehaviour {
+public class Enemy : LivingEntity {
 
     public float rangeOfSight; // how far the Enemy can see
     public float rangeOfAttack; // how far the Enemy can attack
