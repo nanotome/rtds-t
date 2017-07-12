@@ -64,6 +64,11 @@ public class Enemy : MonoBehaviour {
             {
                 Attack();
             }
+
+            if (CanSeePlayer())
+            {
+                transform.LookAt(target.transform.position);
+            }
         }
     }
 
