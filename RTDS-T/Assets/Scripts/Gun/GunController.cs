@@ -42,6 +42,10 @@ public class GunController : MonoBehaviour {
         }
     }
 
+    // HUGE ISSUE!
+    // TODO: maintain a registry of all the guns the Player is carrying so there'll be
+    // no need to re-instantiate guns when equipping. It'd allow us to preserve
+    // the gun's traits.
     public void EquipGun(Gun gunToEquip, int gunPriority, Transform weaponHold)
     {
         if (equippedGuns[gunPriority] != null)

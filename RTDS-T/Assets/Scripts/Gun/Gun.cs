@@ -11,12 +11,20 @@ public class Gun : MonoBehaviour {
     public float msBetweenShots;
     public float bulletSpeed;
 
+    public int ammoCount;
+    private int remainingAmmo;
+
     float nextShotTime;
     bool isTriggerReleased;
 
-	void Shoot()
+    private void Start()
     {
-        if (Time.time > nextShotTime)
+        remainingAmmo = ammoCount;
+    }
+
+    void Shoot()
+    {
+        if (Time.time > nextShotTime && remainingAmmo > 0)
         {
             // for the Single fire mode, the gun should not shoot unless
             // the player has released the trigger beforehand. This constrains
@@ -29,6 +37,7 @@ public class Gun : MonoBehaviour {
                 }
             }
 
+            remainingAmmo--;
             nextShotTime = Time.time + msBetweenShots / 1000;
             Projectile newProjectile = Instantiate(bulletType, projectileSpawn.position, projectileSpawn.rotation);
             newProjectile.SetSpeed(bulletSpeed);
