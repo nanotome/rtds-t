@@ -21,14 +21,14 @@ public class Enemy : LivingEntity {
 
     private NavMeshAgent navMeshAgent;
     Transform target;
-    GameObject targetEntity;
+    LivingEntity targetEntity;
     bool hasTarget;
 
     float collisionRadius;
     float targetCollisionRadius;
 
     Color flashColor = Color.white;
-    float flashDuration = .25f;
+    float flashDuration = .15f;
     Material skinMaterial;
     Color originalColor;
 
@@ -44,7 +44,7 @@ public class Enemy : LivingEntity {
 
             // Get a reference to the Player
             target = GameObject.FindGameObjectWithTag("Player").transform;
-            targetEntity = target.gameObject;
+            targetEntity = target.GetComponent<LivingEntity>();
 
             // The Player and Enemy should collide on their surfaces and not their centres.
             collisionRadius = GetComponent<CapsuleCollider>().radius;
@@ -59,6 +59,9 @@ public class Enemy : LivingEntity {
         if (hasTarget)
         {
             currentState = State.Idle;
+
+            // Listen for the Player's death event
+            targetEntity.OnDeath += OnTargetDeath;
 
             // Cast a ray from the Enemy to the Player
             StartCoroutine(UpdatePath());
@@ -120,16 +123,24 @@ public class Enemy : LivingEntity {
         {
             if(CanSeePlayer())
             {
-                navMeshAgent.enabled = true;
-                currentState = State.Chasing;
+                // When a LivingEntity dies, its transform remains but its
+                // navMeshAgent does not.
+                if(!dead)
+                {
+                    navMeshAgent.enabled = true;
+                    currentState = State.Chasing;
 
-                Vector3 dirToTarget = (target.position - transform.position).normalized;
-                Vector3 targetPos = target.position - dirToTarget * (collisionRadius + targetCollisionRadius);
+                    Vector3 dirToTarget = (target.position - transform.position).normalized;
+                    Vector3 targetPos = target.position - dirToTarget * (collisionRadius + targetCollisionRadius);
 
-                navMeshAgent.SetDestination(targetPos);
+                    navMeshAgent.SetDestination(targetPos);
+                }  
             } else
             {
-                navMeshAgent.enabled = false; // this stops the Enemy from chasing the Player
+                if (!dead)
+                {
+                    navMeshAgent.enabled = false; // this stops the Enemy from chasing the Player
+                }
             }
             
             yield return new WaitForSeconds(refreshRate);
@@ -178,5 +189,11 @@ public class Enemy : LivingEntity {
 
         // Enemy should flash when it takes damage
         StartCoroutine(DamageFlash());
+    }
+
+    void OnTargetDeath()
+    {
+        hasTarget = false;
+        currentState = State.Idle;
     }
 }

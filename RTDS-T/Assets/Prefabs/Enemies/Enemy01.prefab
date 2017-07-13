@@ -125,6 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3bdc90e6eb419745b36e02a63acd72f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startingHealth: 5
   rangeOfSight: 10
   rangeOfAttack: 1.5
   viewMask:

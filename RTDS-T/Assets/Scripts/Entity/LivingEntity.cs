@@ -3,7 +3,11 @@
 public class LivingEntity : MonoBehaviour, IDamageable {
 
     public float startingHealth;
+    // Event to be fired off when a LivingEntity dies
+    public event System.Action OnDeath;
+
     protected float health;
+    protected bool dead = false;
 
     // virtual allows the Start method to be called in derived classes
     // For example base.Start()
@@ -21,5 +25,20 @@ public class LivingEntity : MonoBehaviour, IDamageable {
     public virtual void TakeDamage(float damage)
     {
         health -= damage;
+
+        if (health < 0 && !dead)
+        {
+            Die();
+        }
+    }
+
+    protected void Die()
+    {
+        dead = true;
+        if (OnDeath != null)
+        {
+            OnDeath();
+        }
+        Destroy(gameObject);
     }
 }
