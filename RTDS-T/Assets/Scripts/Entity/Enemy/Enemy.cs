@@ -27,9 +27,16 @@ public class Enemy : LivingEntity {
     float collisionRadius;
     float targetCollisionRadius;
 
+    Color flashColor = Color.white;
+    float flashDuration = .25f;
+    Material skinMaterial;
+    Color originalColor;
+
     private void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
+        skinMaterial = GetComponent<Renderer>().sharedMaterial;
+        originalColor = skinMaterial.color;
 
         if (GameObject.FindGameObjectWithTag("Player") != null)
         {
@@ -149,5 +156,27 @@ public class Enemy : LivingEntity {
             currentState = prevState;
             navMeshAgent.enabled = true;
         }
+    }
+
+    IEnumerator DamageFlash()
+    {
+        float duration = 0f;
+        skinMaterial.color = flashColor;
+
+        while(duration < flashDuration)
+        {
+            duration += Time.deltaTime;
+            yield return null;
+        }
+
+        skinMaterial.color = originalColor;
+    }
+
+    public override void TakeDamage(float damage)
+    {
+        base.TakeDamage(damage);
+
+        // Enemy should flash when it takes damage
+        StartCoroutine(DamageFlash());
     }
 }
