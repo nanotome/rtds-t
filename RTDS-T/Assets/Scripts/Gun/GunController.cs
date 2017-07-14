@@ -80,4 +80,17 @@ public class GunController : MonoBehaviour {
         EquipPrimaryGun(primaryEquip);
         EquipSecondaryGun(secondaryEquip);
     }
+
+    public Gun Primary
+    {
+        get
+        {
+            return equippedGuns[0];
+        }
+    }
+
+    public void UpdateAmmo(int amount)
+    {
+        Primary.UpdateAmmo(amount);
+    }
 }

@@ -59,4 +59,10 @@ public class Gun : MonoBehaviour {
     {
         transform.LookAt(aimPoint);
     }
+
+    // Modify the amount of ammo remaining
+    public void UpdateAmmo(int amount)
+    {
+        remainingAmmo += amount;
+    }
 }
