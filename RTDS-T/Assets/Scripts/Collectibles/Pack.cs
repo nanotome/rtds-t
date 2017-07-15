@@ -26,6 +26,9 @@ public class Pack : MonoBehaviour, ICollectible {
         if (packType == PackType.Ammo)
         {
             collider.GetComponent<GunController>().UpdateAmmo(itemValue);
+        } else if (packType == PackType.Health)
+        {
+            collider.GetComponent<Player>().UpdateHealth(itemValue);
         }
 
         Destroy(gameObject);

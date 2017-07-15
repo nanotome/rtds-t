@@ -33,6 +33,7 @@ public class Player : LivingEntity {
 	}
 	
 	void Update () {
+        Debug.Log(health);
         // Move Player based on input from the keyboard
         Vector3 moveInput = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         playerController.Move(moveInput.normalized * moveSpeed);

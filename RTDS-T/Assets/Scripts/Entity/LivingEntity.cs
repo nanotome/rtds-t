@@ -41,4 +41,10 @@ public class LivingEntity : MonoBehaviour, IDamageable {
         }
         Destroy(gameObject);
     }
+
+    // This method assumes the amount is positive
+    public void UpdateHealth(int amount)
+    {
+        health += amount;
+    }
 }
