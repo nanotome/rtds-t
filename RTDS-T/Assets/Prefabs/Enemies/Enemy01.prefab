@@ -134,6 +134,12 @@ MonoBehaviour:
   attackSpawn: {fileID: 4022545795546650}
   attackType: {fileID: 114924386325612738, guid: 6a26b8185e8e9084eb74aff83bd3477a,
     type: 2}
+  deathEffect: {fileID: 198029852910399108, guid: f79e3a3883f0d2b418f040328efa859b,
+    type: 2}
+  deathItems:
+  - {fileID: 114381154620549892, guid: a9d7f22a262ce9d48bbbe99216ec389a, type: 2}
+  - {fileID: 114530941100870668, guid: 237ddca5e030c0c4492365c57ab40b70, type: 2}
+  - {fileID: 114381154620549892, guid: a9d7f22a262ce9d48bbbe99216ec389a, type: 2}
   msBetweenAttacks: 1000
 --- !u!136 &136122848238124906
 CapsuleCollider:

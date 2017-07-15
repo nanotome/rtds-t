@@ -1,15 +1,21 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent( typeof(NavMeshAgent))]
-public class Enemy : LivingEntity {
+public class Enemy : LivingEntity, IItemCase {
 
     public float rangeOfSight; // how far the Enemy can see
     public float rangeOfAttack; // how far the Enemy can attack
     public LayerMask viewMask; // layer on which obstacles to sight exist
     public Transform attackSpawn;
     public Projectile attackType;
+
+    public ParticleSystem deathEffect;
+    // List of items that may be spawned when the Enemy dies
+    public List<Pack> deathItems;
 
     public float msBetweenAttacks;
     float nextAttackTime;
@@ -31,6 +37,8 @@ public class Enemy : LivingEntity {
     float flashDuration = .15f;
     Material skinMaterial;
     Color originalColor;
+
+    System.Random prng = new System.Random();
 
     private void Awake()
     {
@@ -195,5 +203,24 @@ public class Enemy : LivingEntity {
     {
         hasTarget = false;
         currentState = State.Idle;
+    }
+
+    public void Explode(ParticleSystem deathEffect, Vector3 hitPoint)
+    {
+        Destroy(Instantiate(deathEffect.gameObject, hitPoint, transform.rotation));
+    }
+
+    public void SpawnItems(List<Pack> items)
+    {
+        // pick a random item from the list of items and spawn it
+        Pack itemToSpawn = deathItems[prng.Next(items.Count)];
+        Instantiate(itemToSpawn, transform.position, transform.rotation);
+    }
+
+    public override void Die()
+    {
+        Explode(deathEffect, transform.position);
+        SpawnItems(deathItems);
+        base.Die();
     }
 }
