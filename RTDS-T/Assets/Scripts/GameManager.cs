@@ -3,6 +3,7 @@
 public class GameManager : MonoBehaviour {
 
     public static GameManager instance = null;
+    public BoardManager boardManager;
 
     private void Awake()
     {
