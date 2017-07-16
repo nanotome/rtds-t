@@ -8,7 +8,7 @@ public class BoardManager : MonoBehaviour {
     public enum TilePosition { Wall, Room, Corridor };
     public enum PrefabType
     {
-        Wall, Obstacles, Enemy, Player
+        None, Wall, Obstacles, Enemy, Player
     };
 
     public int columns = 50;
@@ -28,8 +28,11 @@ public class BoardManager : MonoBehaviour {
     // GameObject that acts as a container for all other tiles.
     private Transform boardHolder;
 
+    List<TileInfo> allTiles;
+
     void Start () {
         boardHolder = transform.Find("BoardHolder").transform;
+        allTiles = new List<TileInfo>(columns * rows);
 	}
 
     [Serializable]
@@ -50,13 +53,13 @@ public class BoardManager : MonoBehaviour {
 
         Random prng;
 
-        public TileInfo(Coord mapPos, int xPos, int yPos, TilePosition tilePos, string posId)
+        public TileInfo(Coord mapPos, TilePosition tilePos, string posId)
         {
             pos = mapPos;
             position = tilePos;
             id = posId;
 
-            prefabType = PrefabType.Wall;
+            prefabType = PrefabType.None;
             prefabs = new List<GameObject>();
 
             prng = new Random();
