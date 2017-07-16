@@ -1,16 +1,25 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BoardManager : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+    public int columns = 50;
+    public int rows = 50;
+    public IntRange numRooms = new IntRange(4, 5);
+    public IntRange roomWidth = new IntRange(4, 10);
+    public IntRange roomHeight = new IntRange(8, 10);
+    public IntRange corridorLength = new IntRange(2, 4);
+
+    public GameObject[] floorTiles;
+    public GameObject[] wallTiles;
+    public GameObject[] obstacleTiles;
+    public GameObject[] enemies;
+    public GameObject exit;
+    public GameObject player;
+
+    // GameObject that acts as a container for all other tiles.
+    private Transform boardHolder;
+
+    void Start () {
+        boardHolder = transform.Find("BoardHolder").transform;
 	}
 }
