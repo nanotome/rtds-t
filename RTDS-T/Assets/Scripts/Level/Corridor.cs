@@ -9,7 +9,8 @@ public class Corridor
     public int corridorLength;            // How many units long the corridor is.
     public Direction direction;   // Which direction the corridor is heading from it's room.
 
-    // Get the end position of the corridor based on it's start position and which direction it's heading.
+    // Get the end position of the corridor based on its start position and which direction it's heading.
+    // TODO: there should be a better way to do define this
     public int EndPositionX
     {
         get
@@ -36,8 +37,9 @@ public class Corridor
     }
 
 
-    public void SetupCorridor(Room room, IntRange length, IntRange roomWidth, IntRange roomHeight, int columns, int rows, bool firstCorridor)
+    public void SetupCorridor(Room room, string corrId, IntRange length, IntRange roomWidth, IntRange roomHeight, int columns, int rows, bool firstCorridor)
     {
+        id = corrId;
         // Set a random direction (a random index from 0 to 3, cast to Direction).
         direction = (Direction)Random.Range(0, 4);
 
@@ -48,7 +50,8 @@ public class Corridor
         // Overall effect is if the direction was South then that is 2, becomes 4, remainder is 0, which is north.
         Direction oppositeDirection = (Direction)(((int)room.enteringCorridor + 2) % 4);
 
-        // If this is noth the first corridor and the randomly selected direction is opposite to the previous corridor's direction...
+        // Ensure the corridor isn't leaving in the same direction as the corridor entering
+        // If this is not the first corridor and the randomly selected direction is opposite to the previous corridor's direction...
         if (!firstCorridor && direction == oppositeDirection)
         {
             // Rotate the direction 90 degrees clockwise (North becomes East, East becomes South, etc).

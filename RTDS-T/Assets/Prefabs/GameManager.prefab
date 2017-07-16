@@ -90,7 +90,7 @@ MonoBehaviour:
     m_Min: 4
     m_Max: 10
   roomHeight:
-    m_Min: 8
+    m_Min: 4
     m_Max: 10
   corridorLength:
     m_Min: 2

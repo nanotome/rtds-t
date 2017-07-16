@@ -14,8 +14,9 @@ public class Room
     public Direction enteringCorridor;    // The direction of the corridor that is entering this room.
 
     // This is used for the first room.  It does not have a Corridor parameter since there are no corridors yet.
-    public void SetupRoom(IntRange widthRange, IntRange heightRange, int columns, int rows)
+    public void SetupRoom(string roomId, IntRange widthRange, IntRange heightRange, int columns, int rows)
     {
+        id = roomId;
         // Set a random width and height.
         width = widthRange.RandomInt;
         height = heightRange.RandomInt;
@@ -26,8 +27,9 @@ public class Room
     }
 
     // This is an overload of the SetupRoom function and has a corridor parameter that represents the corridor entering the room.
-    public void SetupRoom(IntRange widthRange, IntRange heightRange, int columns, int rows, Corridor corridor)
+    public void SetupRoom(string roomId, IntRange widthRange, IntRange heightRange, int columns, int rows, Corridor corridor)
     {
+        id = roomId;
         // Set the entering corridor direction.
         enteringCorridor = corridor.direction;
 
