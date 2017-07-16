@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Random = System.Random;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class BoardManager : MonoBehaviour {
@@ -10,12 +8,16 @@ public class BoardManager : MonoBehaviour {
     {
         None, Wall, Obstacles, Enemy, Player
     };
+    public enum Direction
+    {
+        North, East, South, West
+    };
 
     public int columns = 50;
     public int rows = 50;
     public IntRange numRooms = new IntRange(4, 5);
-    public IntRange roomWidth = new IntRange(4, 10);
-    public IntRange roomHeight = new IntRange(8, 10);
+    public IntRange width = new IntRange(4, 10);
+    public IntRange height = new IntRange(8, 10);
     public IntRange corridorLength = new IntRange(2, 4);
 
     public GameObject[] floorTiles;
@@ -29,47 +31,11 @@ public class BoardManager : MonoBehaviour {
     private Transform boardHolder;
 
     List<TileInfo> allTiles;
+    List<Room> rooms;
+    List<Corridor> corridors;
 
     void Start () {
         boardHolder = transform.Find("BoardHolder").transform;
         allTiles = new List<TileInfo>(columns * rows);
 	}
-
-    [Serializable]
-    public struct TileInfo
-    {
-        // The position of the tile on the map's grid.
-        public Coord pos;
-        // The TilePosition determines if the tile is a wall or if it's in
-        // a room or corridor.
-        public TilePosition position;
-        // ID of the room or corridor
-        public string id;
-
-        // The type of initial prefab placed on this tile (on the Floor tile).
-        public PrefabType prefabType;
-        // List of prefabs this tile can spawn.
-        public List<GameObject> prefabs;
-
-        Random prng;
-
-        public TileInfo(Coord mapPos, TilePosition tilePos, string posId)
-        {
-            pos = mapPos;
-            position = tilePos;
-            id = posId;
-
-            prefabType = PrefabType.None;
-            prefabs = new List<GameObject>();
-
-            prng = new Random();
-        }
-
-        public void SpawnPrefab()
-        {
-            // pick a random prefab from the list of prefabs and spawn it
-            GameObject itemToSpawn = prefabs[prng.Next(prefabs.Count)];
-            Instantiate(itemToSpawn, new Vector3(pos.x, 0, pos.y), Quaternion.identity);
-        }
-    }
 }
