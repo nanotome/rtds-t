@@ -47,11 +47,16 @@ public class BoardManager : MonoBehaviour {
         // Position and scale the ground plane
         groundPlane.position = new Vector3(columns / 2, 0, rows / 2);
         groundPlane.localScale = new Vector3(columns / 10, 1, rows / 10);
+        // Rebuild the ground's navmesh
+        groundSurface.BuildNavMesh();
+
         tileMap = new TileInfo[columns, rows];
 
         CreateRoomsAndCorridors();
         SetTileValuesForRooms();
         SetTileValuesForCorridors();
+
+        LayoutFloor();
     }
 
     void CreateRoomsAndCorridors()
@@ -159,6 +164,9 @@ public class BoardManager : MonoBehaviour {
             }
         }
     }
+
+    void LayoutFloor()
+    {
         for (int i = 0; i < columns; i++)
         {
             for (int j = 0; j < rows; j++)
