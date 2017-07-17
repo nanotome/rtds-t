@@ -1,5 +1,4 @@
 ﻿using System;
-using Random = System.Random;
 using static BoardManager;
 
 [Serializable]
@@ -16,8 +15,6 @@ public struct TileInfo
     // The type of initial prefab placed on this tile (on the Floor tile).
     public PrefabType prefabType;
 
-    Random prng;
-
     public TileInfo(Coord mapPos, TilePosition tilePos, PrefabType tileType, string posId)
     {
         pos = mapPos;
@@ -25,7 +22,5 @@ public struct TileInfo
         id = posId;
 
         prefabType = tileType;
-
-        prng = new Random();
     }
 }

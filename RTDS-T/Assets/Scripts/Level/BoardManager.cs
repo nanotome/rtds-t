@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
@@ -21,6 +22,9 @@ public class BoardManager : MonoBehaviour {
     public IntRange roomWidth = new IntRange(4, 10);
     public IntRange roomHeight = new IntRange(8, 10);
     public IntRange corridorLength = new IntRange(2, 4);
+    public IntRange innerWallsPerRoom = new IntRange(2, 3);
+    public IntRange enemiesPerRoom = new IntRange(4, 6);
+    public IntRange obstaclesPerRoom = new IntRange(2, 3);
 
     public Transform[] floorTiles;
     public Transform[] wallTiles;
@@ -38,6 +42,33 @@ public class BoardManager : MonoBehaviour {
     TileInfo[,] tileMap;
     List<Room> rooms;
     List<Corridor> corridors;
+
+    // Filter the tileMap by specific properties; returns a queue.
+    // Currently, this method only filters by the tile's id but it can be improved
+    // to filter by any property of the TileInfo.
+    List<TileInfo> FilterTileMap(string tileId)
+    {
+        var query = from TileInfo tile in tileMap
+                    where tile.id == tileId
+                    select tile;
+
+        return query.ToList();
+    }
+
+    Queue<T> ShuffleList<T>(List<T> itemList)
+    {
+        int n = itemList.Count;
+        while (n > 1)
+        {
+            n--;
+            int k = Random.Range(0, n + 1);
+            T value = itemList[k];
+            itemList[k] = itemList[n];
+            itemList[n] = value;
+        }
+
+        return new Queue<T>(itemList);
+    }
 
     void Start () {
         boardHolder = transform.Find("BoardHolder").transform;
@@ -58,6 +89,8 @@ public class BoardManager : MonoBehaviour {
 
         LayoutFloor();
         LayoutRoomsAndCorridors();
+
+        LayoutRoomObjects();
     }
 
     void CreateRoomsAndCorridors()
@@ -184,7 +217,7 @@ public class BoardManager : MonoBehaviour {
                 switch (tile.prefabType)
                 {
                     case PrefabType.Wall:
-                        Transform wallPrefab = wallTiles[Random.Range(0, floorTiles.Length - 1)];
+                        Transform wallPrefab = wallTiles[Random.Range(0, wallTiles.Length - 1)];
                         Transform wallTile = Instantiate(wallPrefab, new Vector3(i, 1, j), Quaternion.identity);
                         wallTile.parent = boardHolder;
                         break;
@@ -199,6 +232,46 @@ public class BoardManager : MonoBehaviour {
                     default:
                         break;
                 }
+            }
+        }
+    }
+
+    // There is a LOT of repetition in this method which calls for
+    // an extract method operation. I'm too tired to think of that though.
+    // TODO: extract the object instantiation into a method.
+    void LayoutRoomObjects()
+    {
+        for (int i = 0; i < rooms.Count; i++)
+        {
+            Room selectedRoom = rooms[i];
+            Queue<TileInfo> roomSlots = ShuffleList(FilterTileMap(selectedRoom.id));
+
+            int wallCount = innerWallsPerRoom.RandomInt;
+            for (int j = 0; j < wallCount; j++)
+            {
+                TileInfo wallTileInfo = roomSlots.Dequeue();
+                wallTileInfo.prefabType = PrefabType.Wall;
+                Transform wallPrefab = wallTiles[Random.Range(0, wallTiles.Length - 1)];
+                Transform wallTile = Instantiate(wallPrefab, new Vector3(wallTileInfo.pos.x, 1, wallTileInfo.pos.y), Quaternion.identity);
+                wallTile.parent = boardHolder;
+            }
+
+            int enemyCount = enemiesPerRoom.RandomInt;
+            for (int k = 0; k < enemyCount; k++)
+            {
+                TileInfo enemyTileInfo = roomSlots.Dequeue();
+                enemyTileInfo.prefabType = PrefabType.Enemy;
+                Transform enemyPrefab = enemies[Random.Range(0, enemies.Length - 1)];
+                Instantiate(enemyPrefab, new Vector3(enemyTileInfo.pos.x, 1, enemyTileInfo.pos.y), Quaternion.identity);
+            }
+
+            int obstacleCount = obstaclesPerRoom.RandomInt;
+            for (int m = 0; m < obstacleCount; m++)
+            {
+                TileInfo obstacleTileInfo = roomSlots.Dequeue();
+                obstacleTileInfo.prefabType = PrefabType.Obstacle;
+                Transform obstaclePrefab = obstacleTiles[Random.Range(0, obstacleTiles.Length - 1)];
+                Instantiate(obstaclePrefab, new Vector3(obstacleTileInfo.pos.x, 1, obstacleTileInfo.pos.y), Quaternion.identity);
             }
         }
     }
