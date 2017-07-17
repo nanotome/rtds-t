@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
 using Random = System.Random;
 using static BoardManager;
 
@@ -17,26 +15,17 @@ public struct TileInfo
 
     // The type of initial prefab placed on this tile (on the Floor tile).
     public PrefabType prefabType;
-    // List of prefabs this tile can spawn.
-    public List<GameObject> prefabs;
 
     Random prng;
 
-    public TileInfo(Coord mapPos, TilePosition tilePos, string posId)
+    public TileInfo(Coord mapPos, TilePosition tilePos, PrefabType tileType, string posId)
     {
         pos = mapPos;
         position = tilePos;
         id = posId;
 
-        prefabType = PrefabType.None;
-        prefabs = new List<GameObject>();
+        prefabType = tileType;
 
         prng = new Random();
-    }
-
-    public GameObject SelectedPrefab()
-    {
-        // pick a random prefab from the list of prefabs and spawn it
-        return prefabs[prng.Next(prefabs.Count)];
     }
 }

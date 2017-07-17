@@ -8,7 +8,7 @@ public class BoardManager : MonoBehaviour {
     public enum TilePosition { Wall, Room, Corridor };
     public enum PrefabType
     {
-        None, Wall, Obstacles, Enemy, Player
+        Wall, None, Obstacle, Enemy, Player
     };
     public enum Direction
     {
@@ -45,7 +45,7 @@ public class BoardManager : MonoBehaviour {
         groundSurface = groundPlane.GetComponent<NavMeshSurface>();
 
         // Position and scale the ground plane
-        groundPlane.position = new Vector3(columns / 2, 0, rows / 2);
+        groundPlane.position = new Vector3(columns / 2 - .5f, 0, rows / 2 - .5f);
         groundPlane.localScale = new Vector3(columns / 10, 1, rows / 10);
         // Rebuild the ground's navmesh
         groundSurface.BuildNavMesh();
@@ -57,6 +57,7 @@ public class BoardManager : MonoBehaviour {
         SetTileValuesForCorridors();
 
         LayoutFloor();
+        LayoutRoomsAndCorridors();
     }
 
     void CreateRoomsAndCorridors()
@@ -94,12 +95,6 @@ public class BoardManager : MonoBehaviour {
                 // Setup the corridor based on the room that was just created.
                 corridors[i].SetupCorridor(rooms[i], $"corridor-{i + 1}", corridorLength, roomWidth, roomHeight, columns, rows, false);
             }
-
-            if (i == rooms.Count * .5f)
-            {
-                //Vector3 playerPos = new Vector3(rooms[i].xPos, rooms[i].yPos, 0);
-                //Instantiate(player, playerPos, Quaternion.identity);
-            }
         }
     }
 
@@ -121,7 +116,7 @@ public class BoardManager : MonoBehaviour {
                     int yCoord = currentRoom.bottom_left_y + k;
 
                     // The coordinates in the jagged array are based on the room's position and it's width and height.
-                    tileMap[xCoord, yCoord] = new TileInfo(new Coord(xCoord, yCoord), TilePosition.Room, currentRoom.id);
+                    tileMap[xCoord, yCoord] = new TileInfo(new Coord(xCoord, yCoord), TilePosition.Room, PrefabType.None, currentRoom.id);
                 }
             }
         }
@@ -160,7 +155,7 @@ public class BoardManager : MonoBehaviour {
                 }
 
                 // Set the tile at these coordinates to Floor.
-                tileMap[xCoord, yCoord] = new TileInfo(new Coord(xCoord, yCoord), TilePosition.Corridor, currentCorridor.id);
+                tileMap[xCoord, yCoord] = new TileInfo(new Coord(xCoord, yCoord), TilePosition.Corridor, PrefabType.None, currentCorridor.id);
             }
         }
     }
@@ -174,6 +169,36 @@ public class BoardManager : MonoBehaviour {
                 Transform floorPrefab = floorTiles[Random.Range(0, floorTiles.Length - 1)];
                 Transform floorTile = Instantiate(floorPrefab, new Vector3(i, -.25f, j), Quaternion.identity);
                 floorTile.parent = boardHolder;
+            }
+        }
+    }
+
+    void LayoutRoomsAndCorridors()
+    {
+        // iterate through TileInfo and instantiate objects
+        for (int i = 0; i < columns; i++)
+        {
+            for (int j = 0; j < rows; j++)
+            {
+                TileInfo tile = tileMap[i, j];
+                switch (tile.prefabType)
+                {
+                    case PrefabType.Wall:
+                        Transform wallPrefab = wallTiles[Random.Range(0, floorTiles.Length - 1)];
+                        Transform wallTile = Instantiate(wallPrefab, new Vector3(i, 1, j), Quaternion.identity);
+                        wallTile.parent = boardHolder;
+                        break;
+                    case PrefabType.None:
+                        break;
+                    case PrefabType.Obstacle:
+                        break;
+                    case PrefabType.Enemy:
+                        break;
+                    case PrefabType.Player:
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }
