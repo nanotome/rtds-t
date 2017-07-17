@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 public class BoardManager : MonoBehaviour {
 
@@ -20,15 +22,18 @@ public class BoardManager : MonoBehaviour {
     public IntRange roomHeight = new IntRange(8, 10);
     public IntRange corridorLength = new IntRange(2, 4);
 
-    public GameObject[] floorTiles;
-    public GameObject[] wallTiles;
-    public GameObject[] obstacleTiles;
-    public GameObject[] enemies;
-    public GameObject exit;
-    public GameObject player;
+    public Transform[] floorTiles;
+    public Transform[] wallTiles;
+    public Transform[] obstacleTiles;
+    public Transform[] enemies;
+    public Transform exit;
+    public Transform player;
 
     // GameObject that acts as a container for all other tiles.
     private Transform boardHolder;
+    // GameObject to act as walking plane for LivingEntity objects
+    private Transform groundPlane;
+    private NavMeshSurface groundSurface;
 
     TileInfo[,] tileMap;
     List<Room> rooms;
@@ -36,6 +41,12 @@ public class BoardManager : MonoBehaviour {
 
     void Start () {
         boardHolder = transform.Find("BoardHolder").transform;
+        groundPlane = transform.Find("Ground").transform;
+        groundSurface = groundPlane.GetComponent<NavMeshSurface>();
+
+        // Position and scale the ground plane
+        groundPlane.position = new Vector3(columns / 2, 0, rows / 2);
+        groundPlane.localScale = new Vector3(columns / 10, 1, rows / 10);
         tileMap = new TileInfo[columns, rows];
 
         CreateRoomsAndCorridors();
@@ -145,6 +156,16 @@ public class BoardManager : MonoBehaviour {
 
                 // Set the tile at these coordinates to Floor.
                 tileMap[xCoord, yCoord] = new TileInfo(new Coord(xCoord, yCoord), TilePosition.Corridor, currentCorridor.id);
+            }
+        }
+    }
+        for (int i = 0; i < columns; i++)
+        {
+            for (int j = 0; j < rows; j++)
+            {
+                Transform floorPrefab = floorTiles[Random.Range(0, floorTiles.Length - 1)];
+                Transform floorTile = Instantiate(floorPrefab, new Vector3(i, -.25f, j), Quaternion.identity);
+                floorTile.parent = boardHolder;
             }
         }
     }
