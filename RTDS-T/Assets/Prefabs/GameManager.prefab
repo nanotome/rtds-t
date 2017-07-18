@@ -168,6 +168,15 @@ MonoBehaviour:
   corridorLength:
     m_Min: 3
     m_Max: 6
+  innerWallsPerRoom:
+    m_Min: 2
+    m_Max: 3
+  enemiesPerRoom:
+    m_Min: 4
+    m_Max: 6
+  obstaclesPerRoom:
+    m_Min: 2
+    m_Max: 3
   floorTiles:
   - {fileID: 4695427047662516, guid: e1fb88d402dc2574da46849b1aa26bae, type: 2}
   wallTiles:
@@ -177,7 +186,8 @@ MonoBehaviour:
   enemies:
   - {fileID: 4686440200016638, guid: fa299c509953a854d974eb9355351f57, type: 2}
   exit: {fileID: 4608305006290552, guid: 65519b833e96a914aa705ed2f225f09b, type: 2}
-  player: {fileID: 4869745345507832, guid: 0bb8005016a40f4439b9883938a9ad42, type: 2}
+  player: {fileID: 0}
+  boardHolder: {fileID: 4775570692056266}
 --- !u!114 &114130675392763744
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -189,7 +199,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1bf63dfa95914246b8ba556652f0ab8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boardManager: {fileID: 0}
 --- !u!114 &114528359852692584
 MonoBehaviour:
   m_ObjectHideFlags: 1

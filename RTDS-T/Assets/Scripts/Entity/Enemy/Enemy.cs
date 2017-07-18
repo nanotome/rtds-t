@@ -42,8 +42,7 @@ public class Enemy : LivingEntity, IItemCase {
     private void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
-        skinMaterial = GetComponent<Renderer>().sharedMaterial;
-        originalColor = skinMaterial.color;
+        skinMaterial = GetComponent<Renderer>().material;
 
         if (GameObject.FindGameObjectWithTag("Player") != null)
         {
@@ -73,6 +72,15 @@ public class Enemy : LivingEntity, IItemCase {
             // Cast a ray from the Enemy to the Player
             StartCoroutine(UpdatePath());
         }
+    }
+
+    public void SetUpEnemy(float addHealth, float damage, Color enemyColor)
+    {
+        health += addHealth;
+        attackType.SetDamage(damage);
+
+        skinMaterial.color = enemyColor;
+        originalColor = enemyColor;
     }
 
     private void Update()
@@ -192,10 +200,10 @@ public class Enemy : LivingEntity, IItemCase {
 
     public override void TakeDamage(float damage)
     {
-        base.TakeDamage(damage);
-
         // Enemy should flash when it takes damage
         StartCoroutine(DamageFlash());
+
+        base.TakeDamage(damage);
     }
 
     void OnTargetDeath()

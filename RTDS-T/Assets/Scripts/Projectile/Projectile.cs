@@ -43,6 +43,11 @@ public class Projectile : MonoBehaviour {
         lifeTime = newTime;
     }
 
+    public void SetDamage(float damage)
+    {
+        projectileDamage = damage;
+    }
+
     // Collision detection using colliders
     void CheckCollisions(float dist)
     {

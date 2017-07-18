@@ -31,10 +31,10 @@ public class BoardManager : MonoBehaviour {
     public Transform[] obstacleTiles;
     public Transform[] enemies;
     public Transform exit;
-    public Transform player;
-
+    public Player player;
     // GameObject that acts as a container for all other tiles.
-    private Transform boardHolder;
+    public Transform boardHolder;
+
     // GameObject to act as walking plane for LivingEntity objects
     private Transform groundPlane;
     private NavMeshSurface groundSurface;
@@ -42,6 +42,7 @@ public class BoardManager : MonoBehaviour {
     TileInfo[,] tileMap;
     List<Room> rooms;
     List<Corridor> corridors;
+    Color enemyColor = Color.green;
 
     // Filter the tileMap by specific properties; returns a queue.
     // Currently, this method only filters by the tile's id but it can be improved
@@ -81,16 +82,22 @@ public class BoardManager : MonoBehaviour {
         // Rebuild the ground's navmesh
         groundSurface.BuildNavMesh();
 
-        tileMap = new TileInfo[columns, rows];
+        SetUpLevel(GameManager.instance.level);
+    }
 
+    void SetUpLevel(int level)
+    {
+        tileMap = new TileInfo[columns, rows];
         CreateRoomsAndCorridors();
         SetTileValuesForRooms();
         SetTileValuesForCorridors();
 
-        LayoutFloor();
+        //LayoutFloor();
         LayoutRoomsAndCorridors();
 
-        LayoutRoomObjects();
+        SetPlayerPosition();
+
+        LayoutRoomObjects(level);
     }
 
     void CreateRoomsAndCorridors()
@@ -106,7 +113,7 @@ public class BoardManager : MonoBehaviour {
         corridors.Insert(0, new Corridor());
 
         // set up the first room as there is no corridor
-        rooms[0].SetupRoom("start", roomWidth, roomHeight, columns, rows);
+        rooms[0].SetupRoom("start", columns, rows);
 
         // set up the first corridor using the first room
         corridors[0].SetupCorridor(rooms[0], "corridor-1", corridorLength, roomWidth, roomHeight, columns, rows, true);
@@ -236,12 +243,27 @@ public class BoardManager : MonoBehaviour {
         }
     }
 
+    void SetPlayerPosition()
+    {
+        // Get the first room
+        Room startRoom = rooms[0];
+        Vector3 playerPos = new Vector3(startRoom.bottom_left_x + 1, 1, startRoom.bottom_left_y + 1);
+        player.transform.position = playerPos;
+    }
+
     // There is a LOT of repetition in this method which calls for
     // an extract method operation. I'm too tired to think of that though.
     // TODO: extract the object instantiation into a method.
-    void LayoutRoomObjects()
+    void LayoutRoomObjects(int level)
     {
-        for (int i = 0; i < rooms.Count; i++)
+        // Generate a random enemy color
+        enemyColor = Color.Lerp(Color.yellow, Color.red, Mathf.PingPong(Time.time, 1));
+        float enemyDamage = Mathf.Pow(level, 2) / (2 * level);
+        float enemyHealth = Mathf.Pow(level, 2) / (2 * level);
+
+        // set up the enemies and other objects from the second room onwards.
+        // The Player will be placed in the first room.
+        for (int i = 1; i < rooms.Count; i++)
         {
             Room selectedRoom = rooms[i];
             Queue<TileInfo> roomSlots = ShuffleList(FilterTileMap(selectedRoom.id));
@@ -262,7 +284,9 @@ public class BoardManager : MonoBehaviour {
                 TileInfo enemyTileInfo = roomSlots.Dequeue();
                 enemyTileInfo.prefabType = PrefabType.Enemy;
                 Transform enemyPrefab = enemies[Random.Range(0, enemies.Length - 1)];
-                Instantiate(enemyPrefab, new Vector3(enemyTileInfo.pos.x, 1, enemyTileInfo.pos.y), Quaternion.identity);
+                Transform enemy = Instantiate(enemyPrefab, new Vector3(enemyTileInfo.pos.x, 1, enemyTileInfo.pos.y), Quaternion.identity);
+
+                enemy.GetComponent<Enemy>().SetUpEnemy(enemyHealth, enemyDamage, enemyColor);
             }
 
             int obstacleCount = obstaclesPerRoom.RandomInt;

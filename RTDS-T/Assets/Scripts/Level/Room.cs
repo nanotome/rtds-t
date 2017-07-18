@@ -14,12 +14,13 @@ public class Room
     public Direction enteringCorridor;    // The direction of the corridor that is entering this room.
 
     // This is used for the first room.  It does not have a Corridor parameter since there are no corridors yet.
-    public void SetupRoom(string roomId, IntRange widthRange, IntRange heightRange, int columns, int rows)
+    public void SetupRoom(string roomId, int columns, int rows)
     {
         id = roomId;
-        // Set a random width and height.
-        width = widthRange.RandomInt;
-        height = heightRange.RandomInt;
+        // Set the width and height of the room to 3 each.
+        // The player will be placed in this room and there'll be no enemies or other objects
+        width = 3;
+        height = 3;
 
         // Set the x and y coordinates so the room is roughly in the middle of the board.
         bottom_left_x = Mathf.RoundToInt(columns / 2f - width / 2f);
