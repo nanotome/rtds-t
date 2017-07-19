@@ -9,7 +9,7 @@ public class BoardManager : MonoBehaviour {
     public enum TilePosition { Wall, Room, Corridor };
     public enum PrefabType
     {
-        Wall, None, Obstacle, Enemy, Player
+        Wall, None, Obstacle, Enemy, Player, Exit
     };
     public enum Direction
     {
@@ -31,13 +31,13 @@ public class BoardManager : MonoBehaviour {
     public Transform[] obstacleTiles;
     public Transform[] enemies;
     public Transform exit;
-    public Player player;
     // GameObject that acts as a container for all other tiles.
     public Transform boardHolder;
 
     // GameObject to act as walking plane for LivingEntity objects
     private Transform groundPlane;
     private NavMeshSurface groundSurface;
+    private GameObject player;
 
     TileInfo[,] tileMap;
     List<Room> rooms;
@@ -47,10 +47,21 @@ public class BoardManager : MonoBehaviour {
     // Filter the tileMap by specific properties; returns a queue.
     // Currently, this method only filters by the tile's id but it can be improved
     // to filter by any property of the TileInfo.
-    List<TileInfo> FilterTileMap(string tileId)
+    private List<TileInfo> FilterTileMap(string tileId)
     {
         var query = from TileInfo tile in tileMap
                     where tile.id == tileId
+                    select tile;
+
+        return query.ToList();
+    }
+
+    // Filter the tileMap by the PrefabType and id
+    private List<TileInfo> FilterTileMap(string tileId, PrefabType tileType)
+    {
+        var query = from TileInfo tile in tileMap
+                    where tile.prefabType == tileType &&
+                        tile.id == tileId
                     select tile;
 
         return query.ToList();
@@ -71,10 +82,30 @@ public class BoardManager : MonoBehaviour {
         return new Queue<T>(itemList);
     }
 
-    void Start () {
+    private void Awake()
+    {
+        // There need to be checks here. The lines below assume the objects exist.
         boardHolder = transform.Find("BoardHolder").transform;
         groundPlane = transform.Find("Ground").transform;
         groundSurface = groundPlane.GetComponent<NavMeshSurface>();
+    }
+
+    void Start () {
+        
+    }
+
+    public void DestroyLevel()
+    {
+        // Clear all items in the boardHolder
+        foreach (Transform child in boardHolder)
+        {
+            Destroy(child.gameObject);
+        }
+    }
+
+    public void SetUpLevel(int level)
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
 
         // Position and scale the ground plane
         groundPlane.position = new Vector3(columns / 2 - .5f, 0, rows / 2 - .5f);
@@ -82,11 +113,6 @@ public class BoardManager : MonoBehaviour {
         // Rebuild the ground's navmesh
         groundSurface.BuildNavMesh();
 
-        SetUpLevel(GameManager.instance.level);
-    }
-
-    void SetUpLevel(int level)
-    {
         tileMap = new TileInfo[columns, rows];
         CreateRoomsAndCorridors();
         SetTileValuesForRooms();
@@ -98,6 +124,13 @@ public class BoardManager : MonoBehaviour {
         SetPlayerPosition();
 
         LayoutRoomObjects(level);
+
+        SetExit();
+
+        // TODO: this should be moved to a method.
+        // In that method, the GameManager also removes the loading screen set in
+        // OnLevelFinishLoading.
+        GameManager.instance.loading = false;
     }
 
     void CreateRoomsAndCorridors()
@@ -155,7 +188,7 @@ public class BoardManager : MonoBehaviour {
                 {
                     int yCoord = currentRoom.bottom_left_y + k;
 
-                    // The coordinates in the jagged array are based on the room's position and it's width and height.
+                    // Room tiles are initialized with the PrefabType None to indicate they're empty
                     tileMap[xCoord, yCoord] = new TileInfo(new Coord(xCoord, yCoord), TilePosition.Room, PrefabType.None, currentRoom.id);
                 }
             }
@@ -246,7 +279,7 @@ public class BoardManager : MonoBehaviour {
     void SetPlayerPosition()
     {
         // Get the first room
-        Room startRoom = rooms[0];
+        Room startRoom = rooms.First();
         Vector3 playerPos = new Vector3(startRoom.bottom_left_x + 1, 1, startRoom.bottom_left_y + 1);
         player.transform.position = playerPos;
     }
@@ -298,5 +331,17 @@ public class BoardManager : MonoBehaviour {
                 Instantiate(obstaclePrefab, new Vector3(obstacleTileInfo.pos.x, 1, obstacleTileInfo.pos.y), Quaternion.identity);
             }
         }
+    }
+
+    void SetExit()
+    {
+        // The exit will be set in the last room for now since the rooms are connected
+        // in a chain. This method will be improved to choose a random room.
+        Room lastRoom = rooms.Last();
+        Queue<TileInfo> emptyRoomSlots = ShuffleList(FilterTileMap(lastRoom.id, PrefabType.None));
+        TileInfo exitTileInfo = emptyRoomSlots.Dequeue();
+        exitTileInfo.prefabType = PrefabType.Exit;
+
+        Instantiate(exit, new Vector3(exitTileInfo.pos.x, 1, exitTileInfo.pos.y), Quaternion.identity);
     }
 }

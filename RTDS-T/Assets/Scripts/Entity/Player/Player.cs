@@ -7,7 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof (GunController))]
 public class Player : LivingEntity {
 
-    public Crosshair crosshair;
+    Crosshair crosshair;
 
     // The PlayerController script handles the movement of the Player
     PlayerController playerController;
@@ -28,11 +28,16 @@ public class Player : LivingEntity {
     protected override void Start () {
         base.Start();
 
+        crosshair = GameObject.FindGameObjectWithTag("Crosshair").GetComponent<Crosshair>();
         gunController.EquipPrimaryGun(1);
         gunController.EquipSecondaryGun(0);
 	}
 	
 	void Update () {
+        Debug.Log(health);
+        if (GameManager.instance.loading)
+            return;
+
         // Move Player based on input from the keyboard
         Vector3 moveInput = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         playerController.Move(moveInput.normalized * moveSpeed);

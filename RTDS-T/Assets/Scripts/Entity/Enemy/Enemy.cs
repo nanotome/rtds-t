@@ -85,6 +85,9 @@ public class Enemy : LivingEntity, IItemCase {
 
     private void Update()
     {
+        if (GameManager.instance.loading)
+            return;
+
         if (hasTarget)
         {
             if (CanAttackPlayer())

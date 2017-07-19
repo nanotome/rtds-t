@@ -155,6 +155,10 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1089510756236498, guid: 7fd35ad355896194fbbccd55cc323e8b, type: 2}
+      propertyPath: m_TagString
+      value: Crosshair
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
   m_ParentPrefab: {fileID: 100100000, guid: 7fd35ad355896194fbbccd55cc323e8b, type: 2}
@@ -439,7 +443,7 @@ GameObject:
   - component: {fileID: 510990278}
   - component: {fileID: 510990277}
   - component: {fileID: 510990276}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -476,7 +480,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 10
-  crosshair: {fileID: 1597204311}
 --- !u!114 &510990278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -701,7 +704,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 643930662}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: PrimaryWeaponHold
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -811,7 +814,7 @@ GameObject:
   - component: {fileID: 1597204311}
   m_Layer: 5
   m_Name: Crosshair
-  m_TagString: Untagged
+  m_TagString: Crosshair
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -896,7 +899,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1681401176}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: SecondaryWeaponHold
   m_TagString: Untagged
   m_Icon: {fileID: 0}
