@@ -28,13 +28,14 @@ public class Player : LivingEntity {
     protected override void Start () {
         base.Start();
 
+        UpdateStats(GameManager.instance.playerHealth, GameManager.instance.playerXP);
+
         crosshair = GameObject.FindGameObjectWithTag("Crosshair").GetComponent<Crosshair>();
         gunController.EquipPrimaryGun(1);
         gunController.EquipSecondaryGun(0);
 	}
 	
 	void Update () {
-        Debug.Log(health);
         if (GameManager.instance.loading)
             return;
 
@@ -133,5 +134,23 @@ public class Player : LivingEntity {
             }
         }
 
+    }
+
+    // This method allows the player to carry experience and health over
+    // levels. The Player's stats are stored when a new level is to be loaded.
+    void UpdateStats(float newHP, float newXP)
+    {
+        health = newHP;
+        xp = newXP;
+    }
+
+    public float GetHealth()
+    {
+        return health;
+    }
+
+    public float GetXP()
+    {
+        return xp;
     }
 }

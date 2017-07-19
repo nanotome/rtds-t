@@ -6,6 +6,8 @@ public class LivingEntity : MonoBehaviour, IDamageable {
     // Event to be fired off when a LivingEntity dies
     public event System.Action OnDeath;
 
+    float startingXP = 0;
+    protected float xp;
     protected float health;
     protected bool dead = false;
 
@@ -15,6 +17,7 @@ public class LivingEntity : MonoBehaviour, IDamageable {
     protected virtual void Start()
     {
         health = startingHealth;
+        xp = startingXP;
     }
 
     public virtual void TakeHit(float damage, Vector3 hitPoint, Vector3 hitDirection)
