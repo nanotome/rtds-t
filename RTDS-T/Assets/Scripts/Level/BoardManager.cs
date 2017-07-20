@@ -9,7 +9,7 @@ public class BoardManager : MonoBehaviour {
     public enum TilePosition { Wall, Room, Corridor };
     public enum PrefabType
     {
-        Wall, None, Obstacle, Enemy, Player, Exit
+        Wall, None, Obstacle, Enemy, Player, Exit, Boss
     };
     public enum Direction
     {
@@ -31,6 +31,7 @@ public class BoardManager : MonoBehaviour {
     public Transform[] obstacleTiles;
     public Transform[] enemies;
     public Transform exit;
+    public Transform floorBoss;
     // GameObject that acts as a container for all other tiles.
     public Transform boardHolder;
 
@@ -125,7 +126,9 @@ public class BoardManager : MonoBehaviour {
 
         LayoutRoomObjects(level);
 
-        SetExit();
+        SetFloorBoss(level);
+
+        //SetExit();
 
         // TODO: this should be moved to a method.
         // In that method, the GameManager also removes the loading screen set in
@@ -331,6 +334,23 @@ public class BoardManager : MonoBehaviour {
                 Instantiate(obstaclePrefab, new Vector3(obstacleTileInfo.pos.x, 1, obstacleTileInfo.pos.y), Quaternion.identity);
             }
         }
+    }
+
+    // Every level has a floor boss.
+    void SetFloorBoss(int level)
+    {
+        float bossDamage = Mathf.Pow(level, 2) / (2 * level) + 1;
+        float bossHealth = Mathf.Pow(level, 2) / (2 * level) + 2;
+
+        Room lastRoom = rooms.Last();
+        Queue<TileInfo> emptyRoomSlots = ShuffleList(FilterTileMap(lastRoom.id, PrefabType.None));
+        TileInfo bossTileInfo = emptyRoomSlots.Dequeue();
+        bossTileInfo.prefabType = PrefabType.Boss;
+
+        Transform boss = Instantiate(floorBoss, new Vector3(bossTileInfo.pos.x, 1, bossTileInfo.pos.y), Quaternion.identity);
+        Color bossColor = boss.GetComponent<Renderer>().material.color;
+
+        boss.GetComponent<Enemy>().SetUpEnemy(bossHealth, bossDamage, bossColor);
     }
 
     void SetExit()

@@ -369,6 +369,12 @@ Prefab:
       propertyPath: playerHealth
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 114072736769763902, guid: ca355fba67521734ebccb02d94a5f641,
+        type: 2}
+      propertyPath: floorBoss
+      value: 
+      objectReference: {fileID: 4633411542954632, guid: f5b3ba201eb7950499aa3adfe72dc92f,
+        type: 2}
     m_RemovedComponents:
     - {fileID: 114528359852692584, guid: ca355fba67521734ebccb02d94a5f641, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: ca355fba67521734ebccb02d94a5f641, type: 2}

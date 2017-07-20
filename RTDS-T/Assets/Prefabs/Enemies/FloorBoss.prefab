@@ -127,7 +127,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 5
   rangeOfSight: 10
-  rangeOfAttack: 1.5
+  rangeOfAttack: 2
   viewMask:
     serializedVersion: 2
     m_Bits: 1024
