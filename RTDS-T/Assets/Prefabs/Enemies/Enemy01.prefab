@@ -140,6 +140,7 @@ MonoBehaviour:
   - {fileID: 114381154620549892, guid: a9d7f22a262ce9d48bbbe99216ec389a, type: 2}
   - {fileID: 114530941100870668, guid: 237ddca5e030c0c4492365c57ab40b70, type: 2}
   - {fileID: 114381154620549892, guid: a9d7f22a262ce9d48bbbe99216ec389a, type: 2}
+  xpPack: {fileID: 114278169848267292, guid: 07fbd7f3d5df946449a9f86a007596c1, type: 2}
   msBetweenAttacks: 1000
 --- !u!136 &136122848238124906
 CapsuleCollider:

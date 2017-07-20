@@ -15,6 +15,7 @@ public class Enemy : LivingEntity, IItemCase {
     public ParticleSystem deathEffect;
     // List of items that may be spawned when the Enemy dies
     public List<Pack> deathItems;
+    public Pack xpPack;
 
     public float msBetweenAttacks;
     float nextAttackTime;
@@ -222,6 +223,8 @@ public class Enemy : LivingEntity, IItemCase {
 
     public void SpawnItems(List<Pack> items)
     {
+        // always spawn an XP pack
+        Instantiate(xpPack, transform.position + new Vector3(.2f, 0, 0), transform.rotation);
         // pick a random item from the list of items and spawn it
         Pack itemToSpawn = deathItems[prng.Next(items.Count)];
         Instantiate(itemToSpawn, transform.position, transform.rotation);
