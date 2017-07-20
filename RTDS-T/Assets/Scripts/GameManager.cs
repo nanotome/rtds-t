@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
     {
         boardScript = GetComponent<BoardManager>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        player.OnDeath += GameOver;
+
         // Ensure the instance is of the type GameManager
         if (instance == null)
             instance = this;
@@ -57,5 +59,10 @@ public class GameManager : MonoBehaviour
 
         boardScript.DestroyLevel();
         SceneManager.LoadScene(0);
+    }
+
+    void GameOver()
+    {
+        enabled = false;
     }
 }
