@@ -53,9 +53,16 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
+        // compute new health as fraction of xp
+        float currentHealth = player.GetHealth();
+        float currentXP = player.GetXP();
+
+        float remainingXP = currentXP % 5;
+        float healthGain = currentXP / 5;
+
         // store player stats
-        playerHealth = player.GetHealth();
-        playerXP = player.GetXP();
+        playerHealth = currentHealth + healthGain;
+        playerXP = remainingXP;
 
         boardScript.DestroyLevel();
         SceneManager.LoadScene(0);
