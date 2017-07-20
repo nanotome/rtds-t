@@ -50,4 +50,9 @@ public class LivingEntity : MonoBehaviour, IDamageable {
     {
         health += amount;
     }
+
+    public void UpdateXP(int amount)
+    {
+        xp += amount;
+    }
 }

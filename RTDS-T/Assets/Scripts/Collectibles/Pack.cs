@@ -29,6 +29,9 @@ public class Pack : MonoBehaviour, ICollectible {
         } else if (packType == PackType.Health)
         {
             collider.GetComponent<Player>().UpdateHealth(itemValue);
+        } else if (packType == PackType.Experience)
+        {
+            collider.GetComponent<Player>().UpdateXP(itemValue);
         }
 
         Destroy(gameObject);
