@@ -26,6 +26,7 @@ public class Enemy : LivingEntity, IItemCase {
     State currentState;
 
     private NavMeshAgent navMeshAgent;
+    private FloorBoss bossBehaviour;
     Transform target;
     LivingEntity targetEntity;
     bool hasTarget;
@@ -44,6 +45,7 @@ public class Enemy : LivingEntity, IItemCase {
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         skinMaterial = GetComponent<Renderer>().material;
+        bossBehaviour = GetComponent<FloorBoss>();
 
         if (GameObject.FindGameObjectWithTag("Player") != null)
         {
@@ -234,6 +236,7 @@ public class Enemy : LivingEntity, IItemCase {
     {
         Explode(deathEffect, transform.position);
         SpawnItems(deathItems);
+        bossBehaviour?.SpawnExit(transform.position);
         base.Die();
     }
 }

@@ -30,7 +30,6 @@ public class BoardManager : MonoBehaviour {
     public Transform[] wallTiles;
     public Transform[] obstacleTiles;
     public Transform[] enemies;
-    public Transform exit;
     public Transform floorBoss;
     // GameObject that acts as a container for all other tiles.
     public Transform boardHolder;
@@ -127,8 +126,6 @@ public class BoardManager : MonoBehaviour {
         LayoutRoomObjects(level);
 
         SetFloorBoss(level);
-
-        //SetExit();
 
         // TODO: this should be moved to a method.
         // In that method, the GameManager also removes the loading screen set in
@@ -351,17 +348,5 @@ public class BoardManager : MonoBehaviour {
         Color bossColor = boss.GetComponent<Renderer>().material.color;
 
         boss.GetComponent<Enemy>().SetUpEnemy(bossHealth, bossDamage, bossColor);
-    }
-
-    void SetExit()
-    {
-        // The exit will be set in the last room for now since the rooms are connected
-        // in a chain. This method will be improved to choose a random room.
-        Room lastRoom = rooms.Last();
-        Queue<TileInfo> emptyRoomSlots = ShuffleList(FilterTileMap(lastRoom.id, PrefabType.None));
-        TileInfo exitTileInfo = emptyRoomSlots.Dequeue();
-        exitTileInfo.prefabType = PrefabType.Exit;
-
-        Instantiate(exit, new Vector3(exitTileInfo.pos.x, 1, exitTileInfo.pos.y), Quaternion.identity);
     }
 }

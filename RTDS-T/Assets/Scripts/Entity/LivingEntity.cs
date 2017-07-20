@@ -38,10 +38,7 @@ public class LivingEntity : MonoBehaviour, IDamageable {
     public virtual void Die()
     {
         dead = true;
-        if (OnDeath != null)
-        {
-            OnDeath();
-        }
+        OnDeath?.Invoke();
         Destroy(gameObject);
     }
 

@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 23105171321489100}
   - component: {fileID: 114751161884411162}
   - component: {fileID: 195378015571010466}
+  - component: {fileID: 114487360364067024}
   m_Layer: 8
   m_Name: FloorBoss
   m_TagString: Untagged
@@ -66,7 +67,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1765303734022530}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 56.79025, y: 25.608864, z: 48.031456}
+  m_LocalPosition: {x: 56.968956, y: 25.641478, z: 47.982452}
   m_LocalScale: {x: 1.2, y: 1, z: 1.2}
   m_Children:
   - {fileID: 4495532305717580}
@@ -114,6 +115,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1765303734022530}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114487360364067024
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1765303734022530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67d501c5208574847b90a492b77fe5c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  exit: {fileID: 114058667228193478, guid: 65519b833e96a914aa705ed2f225f09b, type: 2}
 --- !u!114 &114751161884411162
 MonoBehaviour:
   m_ObjectHideFlags: 1
