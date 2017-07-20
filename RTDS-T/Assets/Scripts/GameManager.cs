@@ -19,16 +19,21 @@ public class GameManager : MonoBehaviour
     {
         boardScript = GetComponent<BoardManager>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        player.OnDeath += GameOver;
+        playerHealth = 10;
 
         // Ensure the instance is of the type GameManager
         if (instance == null)
             instance = this;
         else if (instance != this)
+        {
             Destroy(gameObject);
+        }
+            
 
         // Persist the GameManager instance across scenes
         DontDestroyOnLoad(gameObject);
+
+        player.OnDeath += GameOver;
     }
 
     void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)

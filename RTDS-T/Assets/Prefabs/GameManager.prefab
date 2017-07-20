@@ -185,8 +185,7 @@ MonoBehaviour:
   - {fileID: 4940294265528492, guid: 3c496983f6128e747889bfee8cb6b18d, type: 2}
   enemies:
   - {fileID: 4686440200016638, guid: fa299c509953a854d974eb9355351f57, type: 2}
-  exit: {fileID: 4608305006290552, guid: 65519b833e96a914aa705ed2f225f09b, type: 2}
-  player: {fileID: 0}
+  floorBoss: {fileID: 4633411542954632, guid: f5b3ba201eb7950499aa3adfe72dc92f, type: 2}
   boardHolder: {fileID: 4775570692056266}
 --- !u!114 &114130675392763744
 MonoBehaviour:
@@ -199,6 +198,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1bf63dfa95914246b8ba556652f0ab8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: 0
+  loading: 1
+  playerHealth: 0
+  playerXP: 0
 --- !u!114 &114528359852692584
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -224,6 +227,6 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
+  m_VoxelSize: 0.13333334
   m_BuildHeightMesh: 0
   m_NavMeshData: {fileID: 0}

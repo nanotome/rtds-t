@@ -269,116 +269,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1082087628462902, guid: ca355fba67521734ebccb02d94a5f641,
     type: 2}
---- !u!1001 &260398489
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4972744279090270, guid: ca355fba67521734ebccb02d94a5f641, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4972744279090270, guid: ca355fba67521734ebccb02d94a5f641, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4972744279090270, guid: ca355fba67521734ebccb02d94a5f641, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4972744279090270, guid: ca355fba67521734ebccb02d94a5f641, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4972744279090270, guid: ca355fba67521734ebccb02d94a5f641, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4972744279090270, guid: ca355fba67521734ebccb02d94a5f641, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4972744279090270, guid: ca355fba67521734ebccb02d94a5f641, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4972744279090270, guid: ca355fba67521734ebccb02d94a5f641, type: 2}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114072736769763902, guid: ca355fba67521734ebccb02d94a5f641,
-        type: 2}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 510990277}
-    - target: {fileID: 1389244611723296, guid: ca355fba67521734ebccb02d94a5f641, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4207752177940968, guid: ca355fba67521734ebccb02d94a5f641, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4207752177940968, guid: ca355fba67521734ebccb02d94a5f641, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1389244611723296, guid: ca355fba67521734ebccb02d94a5f641, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114072736769763902, guid: ca355fba67521734ebccb02d94a5f641,
-        type: 2}
-      propertyPath: enemiesPerRoom.m_Min
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114072736769763902, guid: ca355fba67521734ebccb02d94a5f641,
-        type: 2}
-      propertyPath: enemiesPerRoom.m_Max
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114072736769763902, guid: ca355fba67521734ebccb02d94a5f641,
-        type: 2}
-      propertyPath: obstaclesPerRoom.m_Min
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114072736769763902, guid: ca355fba67521734ebccb02d94a5f641,
-        type: 2}
-      propertyPath: obstaclesPerRoom.m_Max
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114072736769763902, guid: ca355fba67521734ebccb02d94a5f641,
-        type: 2}
-      propertyPath: innerWallsPerRoom.m_Min
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114072736769763902, guid: ca355fba67521734ebccb02d94a5f641,
-        type: 2}
-      propertyPath: innerWallsPerRoom.m_Max
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114130675392763744, guid: ca355fba67521734ebccb02d94a5f641,
-        type: 2}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 510990277}
-    - target: {fileID: 114130675392763744, guid: ca355fba67521734ebccb02d94a5f641,
-        type: 2}
-      propertyPath: playerHealth
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114072736769763902, guid: ca355fba67521734ebccb02d94a5f641,
-        type: 2}
-      propertyPath: floorBoss
-      value: 
-      objectReference: {fileID: 4633411542954632, guid: f5b3ba201eb7950499aa3adfe72dc92f,
-        type: 2}
-    m_RemovedComponents:
-    - {fileID: 114528359852692584, guid: ca355fba67521734ebccb02d94a5f641, type: 2}
-  m_ParentPrefab: {fileID: 100100000, guid: ca355fba67521734ebccb02d94a5f641, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &507847281
 GameObject:
   m_ObjectHideFlags: 0
@@ -442,7 +332,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &510990275
 GameObject:
@@ -596,7 +486,7 @@ Transform:
   - {fileID: 643930662}
   - {fileID: 1681401176}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &553084944
 GameObject:
@@ -679,39 +569,6 @@ Camera:
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
   m_StereoMirrorMode: 0
---- !u!1 &587648400 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1389244611723296, guid: ca355fba67521734ebccb02d94a5f641,
-    type: 2}
-  m_PrefabInternal: {fileID: 260398489}
---- !u!114 &587648403
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 587648400}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a34cb49a2c56de74ab74b326baf56b70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AgentTypeID: 0
-  m_CollectObjects: 0
-  m_Size: {x: 10, y: 10, z: 10}
-  m_Center: {x: 0, y: 2, z: 0}
-  m_LayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_UseGeometry: 0
-  m_DefaultArea: 0
-  m_IgnoreNavMeshAgent: 1
-  m_IgnoreNavMeshObstacle: 1
-  m_OverrideTileSize: 0
-  m_TileSize: 256
-  m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.13333334
-  m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 0}
 --- !u!1 &643930661
 GameObject:
   m_ObjectHideFlags: 0
@@ -905,7 +762,7 @@ Transform:
   m_Children:
   - {fileID: 858608198}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &1681401175
 GameObject:

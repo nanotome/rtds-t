@@ -319,7 +319,7 @@ public class BoardManager : MonoBehaviour {
                 Transform enemyPrefab = enemies[Random.Range(0, enemies.Length - 1)];
                 Transform enemy = Instantiate(enemyPrefab, new Vector3(enemyTileInfo.pos.x, 1, enemyTileInfo.pos.y), Quaternion.identity);
 
-                enemy.GetComponent<Enemy>().SetUpEnemy(enemyHealth, enemyDamage, enemyColor);
+                enemy.GetComponent<Enemy>().SetUpEnemy(enemyHealth, enemyDamage, enemyColor, 1, 2);
             }
 
             int obstacleCount = obstaclesPerRoom.RandomInt;
@@ -347,6 +347,6 @@ public class BoardManager : MonoBehaviour {
         Transform boss = Instantiate(floorBoss, new Vector3(bossTileInfo.pos.x, 1, bossTileInfo.pos.y), Quaternion.identity);
         Color bossColor = boss.GetComponent<Renderer>().material.color;
 
-        boss.GetComponent<Enemy>().SetUpEnemy(bossHealth, bossDamage, bossColor);
+        boss.GetComponent<Enemy>().SetUpEnemy(bossHealth, bossDamage, bossColor, 2, 5);
     }
 }

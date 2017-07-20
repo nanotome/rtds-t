@@ -39,6 +39,9 @@ public class Enemy : LivingEntity, IItemCase {
     Material skinMaterial;
     Color originalColor;
 
+    int itemCount = 1;
+    int exp = 2;
+
     System.Random prng = new System.Random();
 
     private void Awake()
@@ -77,10 +80,12 @@ public class Enemy : LivingEntity, IItemCase {
         }
     }
 
-    public void SetUpEnemy(float addHealth, float damage, Color enemyColor)
+    public void SetUpEnemy(float addHealth, float damage, Color enemyColor, int numItems, int baseXP)
     {
         health += addHealth;
         attackType.SetDamage(damage);
+        itemCount = numItems;
+        exp = baseXP;
 
         skinMaterial.color = enemyColor;
         originalColor = enemyColor;
@@ -227,9 +232,15 @@ public class Enemy : LivingEntity, IItemCase {
     {
         // always spawn an XP pack
         Instantiate(xpPack, transform.position + new Vector3(.2f, 0, 0), transform.rotation);
-        // pick a random item from the list of items and spawn it
-        Pack itemToSpawn = deathItems[prng.Next(items.Count)];
-        Instantiate(itemToSpawn, transform.position, transform.rotation);
+        xpPack.itemValue = exp;
+
+        for (int i = 0; i < itemCount; i++)
+        {
+            // pick a random item from the list of items and spawn it
+            Pack itemToSpawn = deathItems[prng.Next(items.Count)];
+            Instantiate(itemToSpawn, transform.position, transform.rotation);
+        }
+        
     }
 
     public override void Die()
