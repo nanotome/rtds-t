@@ -38,12 +38,16 @@ public class GameManager : MonoBehaviour
 
     void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
     {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        level++;
-        loading = true;
+        if (scene.name == "Game")
+        {
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+            level++;
+            loading = true;
 
-        // TODO: show a loading banner here
-        boardScript.SetUpLevel(level);
+            // TODO: show a loading banner here
+            boardScript.SetUpLevel(level);
+        }
+        
     }
 
     private void OnEnable()
@@ -70,7 +74,7 @@ public class GameManager : MonoBehaviour
         playerXP = remainingXP;
 
         boardScript.DestroyLevel();
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("Loading");
     }
 
     void GameOver()
